@@ -1,3 +1,9 @@
+-- Create a new database 
+CREATE DATABASE CAR_DEKHO;
+
+-- Switch to the newly created database
+USE DATABASE CAR_DEKHO;
+
 -- Create table to load CSV data
 CREATE or replace TABLE CAR_SALE_CSV(
    CAR_NAME          VARCHAR(128)    
