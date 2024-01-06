@@ -23,8 +23,8 @@ create or replace storage integration s3_int
   type = external_stage
   storage_provider = s3
   enabled = true
-  storage_aws_role_arn = 'arn:aws:iam::381491882333:role/snowflake_connect_s3'
-  storage_allowed_locations = ('s3://hjfjhhg/data/');
+  storage_aws_role_arn = ''
+  storage_allowed_locations = ('');
 
 --Describe integration object to fetch external_id and to be used in s3
 DESC INTEGRATION s3_int;
