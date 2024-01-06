@@ -13,7 +13,7 @@ CREATE or replace TABLE CAR_SALE_CSV(
    ,KMS_DRIVE        NUMBER(20,5)
    ,FUEL_TYPE        VARCHAR(128)
    ,SELLER_TYPE      VARCHAR(128) 
-   ,TRANSMISSION     VARCHAR(128),
+   ,TRANSMISSION     VARCHAR(128)
    ,OWNER            NUMBER(5,0)
  
 );
@@ -23,27 +23,27 @@ create or replace storage integration s3_int
   type = external_stage
   storage_provider = s3
   enabled = true
-  storage_aws_role_arn = ''
-  storage_allowed_locations = ('');
+  storage_aws_role_arn = 'arn:aws:iam::381491882333:role/snowflake_connect_s3'
+  storage_allowed_locations = ('s3://hjfjhhg/data/');
 
 --Describe integration object to fetch external_id and to be used in s3
 DESC INTEGRATION s3_int;
 
-create or replace file format demo_db.public.csv_format
+create or replace file format CAR_DEKHO.public.csv_format
                     type = csv
-                    field_delimiter = '|'
+                    field_delimiter = ','
                     skip_header = 1
                     null_if = ('NULL', 'null')
                     empty_field_as_null = true;
                     
-create or replace stage demo_db.public.ext_csv_stage
-  URL = 's3://<path>'
+create or replace stage CAR_DEKHO.public.ext_csv_stage
+  URL = 's3://hjfjhhg/data/'
   STORAGE_INTEGRATION = s3_int
-  file_format = demo_db.public.csv_format;
+  file_format = CAR_DEKHO.public.csv_format;
 
 -- Use copy command to ingest data from S3
 copy into CAR_SALE_CSV
-from @demo_db.public.ext_csv_stage
+from @CAR_DEKHO.public.ext_csv_stage
 on_error = CONTINUE;
 
 select * from CAR_SALE_CSV
